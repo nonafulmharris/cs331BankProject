@@ -1,0 +1,88 @@
+CS331 - Group 7
+Faraz Merchant, Nona Harris, Angel Cazares
+Business Requirements:
+BRANCH:
+● The bank is organized into branches.
+● Each branch is in a particular city with an address and is identified by a unique branch-ID
+and a name.
+● The bank monitors the assets of each branch.
+● Each branch of the bank has a manager and an assistant manager who are employees of
+the bank.
+Assumptions:
+● The branch manages a number of assets; it is a multivalued attribute that will be
+organized in an asset relation with the asset name serving as a partial key.
+CUSTOMER:
+● Bank customers are uniquely identified by their social security numbers.
+● The bank stores each customer’s name and address (apartment number, street number,
+state, city, and zip code).
+● Customers may have several accounts and can take out loans that are managed as
+accounts as well.
+● A customer may be associated with a particular branch and has a personal banker who
+works with the customer on their loan and bank transactions.
+Assumptions:
+● The customer has total participation in the BANKER relationship with their primary
+banker: every customer associated with the bank must have a personal banker.
+● Each customer is optionally associated with a single branch.
+EMPLOYEE:
+● Bank employees are also identified by their social security numbers.
+● The bank stores the name and telephone numbers of each employee and the names of the
+employee’s dependents.
+● The bank also keeps track of the employee’s start date and, thus, length of employment.
+● An employee at the bank works for one of the branches and reports to the manager of that
+branch.
+● The employee may have a manager and the manager is in charge of a certain number of
+employees.
+Assumptions:
+● The employee may have a number of dependents (it is a multivalued attribute) and this
+will be managed as a separate relation with the employeeSSN and dependent name
+serving as partial keys.
+● Employees do not have to participate in a SUPERVISION relationship with a managing
+employee (as they may be the manager). However, employees can only have one
+manager.
+● The participation of employees in WORKS_FOR is total, as every employee must work
+for a branch to be an employee.
+● Length of employment is a derived attribute from their start date.
+● For a more robust design, we included the attributes sex, salary, address, and date of
+birth.
+● In addition to the dependent names, we will also keep track of each dependent's birthday
+and sex.
+ACCOUNT:
+● The bank offers several types of accounts; savings, checking, money market, and loan
+accounts.
+● An account can be held by more than one customer, and a customer can have more than
+one account.
+● Each account is assigned a unique account number.
+● The bank maintains a record of each account balance and the most recent date on which
+the account was accessed by each customer holding the account.
+● In addition, saving and loan accounts have fixed interest rates, money market accounts
+have variable interest rates regularly updated based on the stock market
+● Overdrafts are recorded for each checking account.
+Assumptions:
+● The participation of accounts in MANAGES is total, because an account cannot exist
+without having an owner.
+● Each account type (checkings, savings, money market, loan account) is a subclass of
+account with disjoint participation. Each account entity must belong to one of the
+subclasses (the subclasses are total).
+● Account overdrafts are a multivalued attribute that will be a separate relation, with the
+overdraft amount and accountID serving as partial keys.
+LOAN:
+● A loan originates at a particular branch and can be held by one or more customers.
+● A loan is identified by a unique loan number (similar to an account number)
+● For each loan, the bank keeps track of the loan amount and the loan monthly repayment
+amount.
+● The bank keeps track of all the transactions. A transaction is identified by a unique code
+and has a type of name. For example, “WD” is the code for withdrawal, and “CD” is for
+customer deposit.
+Assumptions:
+● The participation of a loan in TAKES_OUT is total, because a loan cannot exist without
+having an owner.
+● The LOAN has total participation in a HOLDS relationship with Loan Account because
+every loan must belong to a loan account.
+TRANSACTION:
+● When a customer makes a transaction, the transaction record should identify the
+transaction code, the date, the hour, the amount, and the account.
+● Some transactions are free but the bank charges for most of them. If a customer makes a
+chargeable transaction,the charge is also registered as a chargeless transaction.
+Assumptions:
+● Transaction has total participation in the MAKES relationship with the ACCOUNT entity
+because every transaction must have an account associated with it.
